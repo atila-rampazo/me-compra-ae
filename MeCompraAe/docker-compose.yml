@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: mecompraae
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: M3Compr@A3
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - mecompraae
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - "5672:5672"  # Porta para o RabbitMQ
+      - "15672:15672"  # Porta para o RabbitMQ Management
+    networks:
+      - mecompraae
+
+networks:
+  mecompraae:
+    driver: bridge
